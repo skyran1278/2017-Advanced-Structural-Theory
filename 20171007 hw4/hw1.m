@@ -1,3 +1,5 @@
+%%
+% ----------------------------------------------------------
 % 消除前一次作業
 clc; clear; close all;
 
@@ -21,24 +23,38 @@ psi3 = [ 0.76179; 0; 0.64142 ];
 
 phi = [psi1 psi2 psi3];
 
+lambda = [lambda1 0 0; 0 lambda2 0; 0 0 lambda3];
+
 %%
+% ----------------------------------------------------------
+clc;
+
 % hw1-a
 % inv(k) * p
 delta = k \ p
 
 %%
+% ----------------------------------------------------------
+clc;
+
 % hw1-b
-k * psi1
-lambda1 * psi1
-
-k * psi2
-lambda2 * psi2
-
-k * psi3
-lambda3 * psi3
+isequal(k * psi1, lambda1 * psi1)
+isequal(k * psi2, lambda2 * psi2)
+isequal(k * psi3, lambda3 * psi3)
 
 %%
+% ----------------------------------------------------------
+clc;
+
 % hw1-c
 % transpose() = .'
-phi.' .* k .* phi
-[lambda1 0 0; 0 lambda2 0; 0 0 lambda3]
+isequal(phi.' * k * phi, lambda)
+
+%%
+% ----------------------------------------------------------
+clc;
+
+% hw1-d
+c = lambda \ phi.' * p
+delta = phi * c
+isequal(k * delta, p)

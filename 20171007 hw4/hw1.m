@@ -25,36 +25,94 @@ phi = [psi1 psi2 psi3];
 
 lambda = [lambda1 0 0; 0 lambda2 0; 0 0 lambda3];
 
+
 %%
 % ----------------------------------------------------------
-clc;
-
 % hw1-a
 % inv(k) * p
-delta = k \ p
+clc;
+
+delta = k \ p;
+fprintf('%d\n', delta);
+
+% output
+% 1.700000e-02
+% 6.750000e-03
+% 1.250000e-02
+
 
 %%
 % ----------------------------------------------------------
-clc;
-
 % hw1-b
-isequal(k * psi1, lambda1 * psi1)
-isequal(k * psi2, lambda2 * psi2)
-isequal(k * psi3, lambda3 * psi3)
+clc;
+isequal(round(k * psi1, 3, 'significant'), round(lambda1 * psi1, 3, 'significant'))
+isequal(round(k * psi2, 3, 'significant'), round(lambda2 * psi2, 3, 'significant'))
+isequal(round(k * psi3, 3, 'significant'), round(lambda3 * psi3, 3, 'significant'))
+
+% output
+% ans =
+
+%   logical
+
+%    1
+
+
+% ans =
+
+%   logical
+
+%    1
+
+
+% ans =
+
+%   logical
+
+%    0
+
+
 
 %%
 % ----------------------------------------------------------
-clc;
-
 % hw1-c
 % transpose() = .'
-isequal(phi.' * k * phi, lambda)
+clc;
+
+isequal(round(phi.' * k * phi, 3, 'significant'), round(lambda, 3, 'significant'))
+
+% output
+% ans =
+
+%   logical
+
+%    0
 
 %%
 % ----------------------------------------------------------
+% hw1-d
 clc;
 
-% hw1-d
 c = lambda \ phi.' * p
 delta = phi * c
-isequal(k * delta, p)
+isequal(round(k * delta, 3, 'significant'), round(p, 3, 'significant'))
+
+% output
+% c =
+
+%     0.0013
+%     0.0067
+%     0.0209
+
+
+% delta =
+
+%     0.0168
+%     0.0067
+%     0.0124
+
+
+% ans =
+
+%   logical
+
+%    0

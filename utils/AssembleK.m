@@ -1,5 +1,5 @@
 function k = AssembleK(first, last, varargin)
-
+% 適用於 chain bar
   % 得到矩陣大小
   kSize = nargin * 2 + 2;
 

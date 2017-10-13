@@ -3,4 +3,4 @@
 % 消除前一次作業
 clc; clear; close all;
 
-
+[ area ] = integral(0, 2, 0.0001)

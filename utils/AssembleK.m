@@ -19,6 +19,7 @@ function k = AssembleK(first, last, varargin)
 
     vararginKWithIndex = Kzero;
 
+    % 感覺可以再簡化
     vararginKWithIndex(index * 2 + 1 : index * 2 + 4, index * 2 + 1 : index * 2 + 4) = varargin{index};
 
     vararginK = vararginK + vararginKWithIndex;

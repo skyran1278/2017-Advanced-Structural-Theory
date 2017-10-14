@@ -4,19 +4,25 @@
 clc; clear; close all;
 
 % for loop
-% tic
+
+tic;
 printProbability(100);
 printProbability(10000);
 printProbability(1000000);
-% toc
+forLoopTime = toc;
 
 
 % matrix
-% tic
-% printProbabilityForSqrtTimes(100);
-% printProbabilityForSqrtTimes(10000);
-% printProbabilityForSqrtTimes(1000000);
-% toc
+fprintf('\n\n-------------------\nmatrix method contrast:\n\n');
+
+tic;
+printProbabilityForSqrtTimes(100);
+printProbabilityForSqrtTimes(10000);
+printProbabilityForSqrtTimes(1000000);
+matrixTime = toc;
+
+fprintf('\nmatrix method is faster than for loop method: %f times\n', forLoopTime / matrixTime);
+
 
 function f = printProbability(testTimes)
   fprintf('after %d tests, probability of failure is %f \n', testTimes, bigTest(testTimes));

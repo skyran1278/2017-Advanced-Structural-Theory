@@ -3,10 +3,20 @@
 % 消除前一次作業
 clc; clear; close all;
 
+% for loop
+% tic
 printProbability(100);
 printProbability(10000);
 printProbability(1000000);
+% toc
 
+
+% matrix
+% tic
+% printProbabilityForSqrtTimes(100);
+% printProbabilityForSqrtTimes(10000);
+% printProbabilityForSqrtTimes(1000000);
+% toc
 
 function f = printProbability(testTimes)
   fprintf('after %d tests, probability of failure is %f \n', testTimes, bigTest(testTimes));
@@ -36,6 +46,30 @@ function probability = bigTest(testTimes)
     end
 
   end
+
+  probability = exceedLimitTimes / testTimes;
+
+end
+
+
+function f = printProbabilityForSqrtTimes(testTimes)
+  fprintf('after %.0f tests, probability of failure is %f \n', testTimes, bigTestForSqrtTimes(testTimes));
+end
+
+
+function probability = bigTestForSqrtTimes(testTimes)
+%bigTest - probability of failure
+%
+% Syntax: probability = bigTest(testTimes)
+%
+% Long probability of failure
+
+  L = 5;
+  E = 7.7 * 10 ^ 6 + ( 0.1 * 10 ^ 6 * rand(sqrt(testTimes)) );
+  I = 8 * 10 ^ (-4) + ( 2 * 10 ^ (-4) * rand(sqrt(testTimes)) );
+  w = 10 + 15 * rand(sqrt(testTimes));
+
+  exceedLimitTimes = sum(sum(0.0069 .* w .* L .^ 4 ./ E ./ I > L / 360));
 
   probability = exceedLimitTimes / testTimes;
 

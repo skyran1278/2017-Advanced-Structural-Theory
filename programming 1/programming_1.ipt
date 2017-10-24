@@ -1,0 +1,58 @@
+programming 1
+kN
+m
+
+* NNOD NBC NMAT NSEC ITP NNE IFORCE
+  5    4   3    3    3   2   2
+
+* COOR (m)
+1 0   0
+2 3   0
+3 6   0
+4 7.5 -1.72
+5 9   0
+
+* NFIX (u, v, Θx, Θy)
+1
+2
+3
+4
+5
+6
+7
+8
+
+* External Load (kN): Px, Py
+1
+2
+3
+4
+5
+6
+7
+8
+
+* IDBC
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+
+* PROP
+1
+2
+
+* SECT
+1
+2
+3

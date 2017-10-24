@@ -1,36 +1,33 @@
 %     Advanced Structural Theory
 %
-%     Program Assignment No. 1 (weight=1)
+%     Program Assignment No. 1 (Weight 1)
 %
-%     Note that each program assignment has its own weight.
-%     Usually, the larger the weight, the more time you are expected
-%     to spend on the assignment.
 %
-%        Assigned: (10/19/2017)
-%        Due: (11/2/2017)
+%        Assigned: (10/20/2016)
+%        Due: (11/3/2016)
 %
 %      (1) Complete function INPUT
-%      (2) Complete the main program FRAME17 up to
+%      (2) Complete the main program FRAME16 up to
 %          % ^^* UP TO HERE  --- PROG 1 ^^*
 %      (3) Test problem: see programming 1.pdf; you shall
-%		   create an input file and run the program to write out
-%          the data (in subroutine INPUT) to see if the output
+%		   prepare an input file and run the program to read in and
+%          write out the data (in function INPUT) to see if the output
 %          data are the same as the input data. In addition, use function
 %          drawingStructure to check the geometry of the structures.
 %      (4) Sumbit the following to CEIBA in archive file (*.zip or *.rar):
-%          (a) Program source code "FRAME17.m"
+%          (a) Program source code "FRAME16.m"
 %          (b) Input file "*.ipt"
 %
 %
-function FRAME17(FILENAME)
-% FRAME17: A linear analysis program for framed structures
+function FRAME16(FILENAME)
+% FRAME14: A linear analysis program for framed structures
 %..........................................................................
-%    Programmer:  劉德謙、乃宥然
-%                 Supervised by Professor Liang-Jenq Leu
+%    Programmers: R05521203�i�@�@&R05521245�L�a��
+%                 Supervised by Liang-Jenq Leu
 %                 For the course: Advanced Structural Theory
 %                 Department of Civil Engineering
 %                 National Taiwan University
-%                 Fall 2017 @All Rights Reserved
+%                 Fall 2016 @All Rights Reserved
 %..........................................................................
 
 %    VARIABLES:
@@ -59,13 +56,13 @@ function FRAME17(FILENAME)
 %   SPACE   TRUSS   5    3    3
 %   SPACE   FRAME   6    3    6
 
-FTYPE = {'BEAM'; 'PLANE TRUSS'; 'PLANE FRAME'; 'PLANE GRID'; ...
-    'SPACE TRUSS'; 'SPACE FRAME'};
-IPR = [1, 2, 2, 2, 3, 3; 2, 2, 3, 3, 3, 6];
+FTYPE = {'BEAM';'PLANE TRUSS';'PLANE FRAME';'PLANE GRID';...
+    'SPACE TRUSS';'SPACE FRAME'};
+IPR = [1,2,2,2,3,3;2,2,3,3,3,6];
 
 if nargin == 0 % no input argument
     % Open file with user interface
-    [~, FILENAME] = fileparts(uigetfile('*.ipt', 'Select Input file'));
+    [~,FILENAME] = fileparts(uigetfile('*.ipt','Select Input file'));
 end
 
 % Get starting time
@@ -81,40 +78,189 @@ IREAD = fopen([FILENAME '.ipt'], 'r');
 TITLE = fgets(IREAD);
 FUNIT = fgets(IREAD);
 LUNIT = fgets(IREAD);
-
 ID = '*';
 HEADLINE(ID,IREAD);
-
 line = fgets(IREAD);
-args = str2num(line); % 可回傳 matrix
-[NNOD, NBC, NMAT, NSEC, ITP, NNE, IFORCE] = deal(args(1), args(2), args(3), args(4), args(5), args(6), args(7));
-NCO = IPR(1, ITP);
-NDN = IPR(2, ITP);
-NDE = NDN * NNE;
+args = str2num(line);
+[NNOD,NBC,NMAT,NSEC,ITP,NNE,IFORCE] = deal(args(1),args(2),args(3),args(4),args(5),args(6),args(7));
+NCO = IPR(1,ITP);
+NDN = IPR(2,ITP);
+NDE = NDN*NNE;
 
 % Read the remaining data
-% [COOR,~] = INPUT(IREAD,ID,NNOD,NCO,~);
-[COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT] = ...
-INPUT(IREAD, ID, NNOD, NBC, NMAT, NSEC, ITP, NCO, NDN, NDE, IFORCE)
-
+ [COOR,NFIX,EXLD,IDBC,VECTY,FEF,PROP,SECT] = INPUT(IREAD,ID,NNOD,NCO,NBC,NMAT,NSEC,ITP,NDN,NDE,IFORCE)
 fclose(IREAD);
 
 %DrawingStructure
 FORMAT='-r';
-drawingStructure(ITP, COOR, IDBC, NBC, LUNIT, FORMAT);
+drawingStructure(ITP,COOR,IDBC,NBC,LUNIT,FORMAT);
+
+%Output data(Input check)
+IWRITE=fopen('output data.txt','w');
+fprintf(IWRITE,'%s',TITLE);
+fprintf(IWRITE,'%s',FUNIT);
+fprintf(IWRITE,'%s',LUNIT);
+fprintf(IWRITE,'*\t%s\t%s\t%s\t%s\t%s\t%s\t%s\r\n','NNOD','NBC','NMAT','NSEC','ITP','NNE','IFORCE');
+fprintf(IWRITE,'\t%d\t%d\t%d\t%d\t%d\t%d\t%d\r\n',NNOD,NBC,NMAT,NSEC,ITP,NNE,IFORCE);
+
+fprintf(IWRITE,'\r\n*\t%s','COOR (m)');
+[m, n] = size(COOR');
+a=0;
+for i = 1 : m
+    a=a+1;
+    fprintf(IWRITE,'\r\n%d',a);
+    for j = 1 : n
+        fprintf(IWRITE,'\t%d',COOR(j, i));
+    end
+end
+
+fprintf(IWRITE,'\r\n');
+fprintf(IWRITE,'\r\n*\t%s','NFIX (u,v)');
+[m, n] = size(NFIX');
+a=0;
+for i = 1 : m
+    a=a+1;
+    fprintf(IWRITE,'\r\n%d',a);
+    for j = 1 : n
+        fprintf(IWRITE,'\t%d',NFIX(j, i));
+    end
+end
+
+fprintf(IWRITE,'\r\n');
+fprintf(IWRITE,'\r\n*\t%s','External Load (kN): Px, Py');
+[m, n] = size(EXLD');
+a=0;
+for i = 1 : m
+    a=a+1;
+    fprintf(IWRITE,'\r\n%d',a);
+    for j = 1 : n
+        fprintf(IWRITE,'\t%d',EXLD(j, i));
+    end
+end
+
+fprintf(IWRITE,'\r\n');
+fprintf(IWRITE,'\r\n*\t%s','IDBC');
+[m, n] = size(IDBC');
+a=0;
+for i = 1 : m
+    a=a+1;
+    fprintf(IWRITE,'\r\n%d',a);
+    for j = 1 : n
+        fprintf(IWRITE,'\t%d',IDBC(j, i));
+    end
+end
+
+fprintf(IWRITE,'\r\n');
+fprintf(IWRITE,'\r\n*\t%s','PROP');
+[m, n] = size(PROP');
+a=0;
+for i = 1 : m
+    a=a+1;
+    fprintf(IWRITE,'\r\n%d',a);
+    for j = 1 : n
+        fprintf(IWRITE,'\t%d',PROP(j, i));
+    end
+end
+
+fprintf(IWRITE,'\r\n');
+fprintf(IWRITE,'\r\n*\t%s','SECT');
+[m, n] = size(SECT');
+a=0;
+for i = 1 : m
+    a=a+1;
+    fprintf(IWRITE,'\r\n%d',a);
+    for j = 1 : n
+        fprintf(IWRITE,'\t%d',SECT(j, i));
+    end
+end
+
+fclose(IWRITE);
+
 
 % ^^* UP TO HERE  --- PROG 1 ^^*
+[IDND,NEQ] = IDMAT(NFIX,NNOD,NDN)
+LM = MEMDOF(NDE,NBC,IDBC,IDND)
+NSBAND = SEMIBAND(NBC,LM)
 
-%
 % % DOF numbering
-% [IDND,NEQ] = IDMAT( ~ );
+function [IDND,NEQ] = IDMAT(NFIX,NNOD,NDN)
+%..........................................................................
 %
+%   PURPOSE: Transform the NFIX matrix to equation (DOF) number matrix
+%            IDND (nodal DOF table) and calculate the number of equation
+%            (DOF), NEQ.
+%
+%
+%   INPUT VARIABLES:
+%     NFIX(NDN,NNOD)   = matrix specifying the boundary conditions
+%     NNOD             = number of nodes
+%     NDN              = number of DOFs per node
+%
+%   OUTPUT VARIABLES:
+%     IDND(NDN,NNOD)   = matrix specifying the global DOF from nodal DOF
+%     NEQ              = number of equations
+%
+%   INTERMEDIATE VARIABLES:
+%     N                = fixed d.o.f. numbering
+%..........................................................................
+IDND = zeros(NDN,NNOD);
+PS=0;
+NS=0;
+for j = 1 : NNOD
+    for i = 1 : NDN
+        if NFIX(i,j) < 0
+            NS = NS - 1;
+            IDND(i,j) = NS;
+        elseif NFIX(i,j) > 0
+            IDND(i,j) = IDND(i,NFIX(i,j))
+        else
+            PS = PS + 1;
+            IDND(i,j) = PS;
+        end
+    end
+end
+NEQ = PS;
+end
+
 % % Compute the member DOF table:  LM(NDE,NBC)
-% LM = MEMDOF( ~ );
+function LM = MEMDOF(NDE,NBC,IDBC,IDND)
+%.........................................................................
 %
+%   PURPOSE: Calculate the location matrix LM for each element
+%
+%   INPUT VARIABLES:
+%   ...
+%   ...
+%
+%   OUTPUT VARIABLES:
+%   ...
+%..........................................................................
+LM = zeros(NDE,NBC);
+for j = 1 : NBC
+    LM(:,j) = [IDND(:,IDBC(1,j));IDND(:,IDBC(2,j))];
+end
+end
 % % Compute the semi-band width,NSBAND, of the global stiffness matrix
-% NSBAND = SEMIBAND( ~ );
+function NSBAND = SEMIBAND(NBC,LM)
+%..........................................................................
+%   PURPOSE: Determine the semiband width of the global stiffness
+%            matrix
 %
+%   INPUT VARIABLES:
+%   ...
+%   ...
+%
+%   OUTPUT VARIABLES:
+%     NSBAND     = semiband width
+%..........................................................................
+for i = 1 : NBC
+    LMi=LM(:,i);%��i��element�����쪺DOF
+    LMi((find(LMi<0))) = [];%�Nfixed�ݪ������h��
+    iBAND(i) = (max(LMi) - min(LMi) + 1);
+end
+NSBAND=max(iBAND);
+end
+
 % %Form the global load vector GLOAD(NEQ) from the concentrated nodal loads
 % GLOAD = LOAD(EXLD, ~ );
 %
@@ -151,15 +297,15 @@ drawingStructure(ITP, COOR, IDBC, NBC, LUNIT, FORMAT);
 end
 
 function HEADLINE(ID,IREAD)
-    while ~feof(IREAD)
-        temp = fgets(IREAD);
-        if ~isempty(temp) && temp(1) == ID
-            return
-        end
+while ~feof(IREAD)
+    temp = fgets(IREAD);
+    if ~isempty(temp) && temp(1) == ID
+        return
     end
 end
+end
 
-function [COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT] = INPUT(IREAD, ID, NNOD, NBC, NMAT, NSEC, ITP, NCO, NDN, NDE, IFORCE)
+function [COOR,NFIX,EXLD,IDBC,VECTY,FEF,PROP,SECT] = INPUT(IREAD,ID,NNOD,NCO,NBC,NMAT,NSEC,ITP,NDN,NDE,IFORCE)
 %..........................................................................
 %
 %    PURPOSE: Reads in the following data: nodal coordinates,
@@ -219,28 +365,51 @@ function [COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT] = INPUT(IREAD, ID, NNO
 %..........................................................................
 
 % COOR - Nodal coordinates
-HEADLINE(ID, IREAD);
-COOR = ReadMatrix(IREAD, NCO, NNOD);
-
-% ...
-% ...
-% ...
+HEADLINE(ID,IREAD);
+COOR = ReadMatrix(IREAD,NCO,NNOD);
+%NFIX
+HEADLINE(ID,IREAD);
+NFIX = ReadMatrix(IREAD,NDN,NNOD);
+%EXLD
+HEADLINE(ID,IREAD);
+EXLD = ReadMatrix(IREAD,NDN,NNOD);
+%IDBC
+HEADLINE(ID,IREAD);
+IDBC = ReadMatrix(IREAD,5,NBC);
+%VECTY
+if ITP==6
+    HEADLINE(ID,IREAD);
+    VECTY = ReadMatrix(IREAD,3,NBC);
+else
+    VECTY=[];
+end
+%FEF
+if IFORCE==2
+    HEADLINE(ID,IREAD);
+    FEF = ReadMatrix(IREAD,NDE,NBC);
+else
+    FEF = [];
+end
+%PROP
+HEADLINE(ID,IREAD);
+PROP = ReadMatrix(IREAD,5,NMAT);
+%SECT
+HEADLINE(ID,IREAD);
+SECT = ReadMatrix(IREAD,5,NSEC);
 
 end
-
 
 function mat = ReadMatrix(IREAD, row, col)
 % for function INPUT
-    mat = zeros(row, col);
-    for j = 1:col
-        line = fgets(IREAD);
-        num = str2num(line);
-        mat(:,j) = num(2:row+1);
-    end
+mat = zeros(row,col);
+for j = 1:col
+    line = fgets(IREAD);
+    num = str2num(line);
+    mat(:,j) = num(2:row+1);
+end
 end
 
-
-function drawingStructure(ITP, COOR, IDBC, NBC, LUNIT, FORMAT)
+function drawingStructure(ITP,COOR,IDBC,NBC,LUNIT,FORMAT)
 switch ITP
     case 1
         for e=1:NBC

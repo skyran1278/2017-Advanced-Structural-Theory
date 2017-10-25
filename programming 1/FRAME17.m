@@ -103,6 +103,20 @@ fclose(IREAD);
 FORMAT='-r';
 drawingStructure(ITP, COOR, IDBC, NBC, LUNIT, FORMAT);
 
+% write out the data
+IWRITE=fopen(FILENAME,'w');
+
+fprintf(IWRITE, '%s', TITLE);
+fprintf(IWRITE, '%s', FUNIT);
+fprintf(IWRITE, '%s', LUNIT);
+fprintf(IWRITE, '\n');
+fprintf(IWRITE, '* NNOD NBC NMAT NSEC ITP NNE IFORCE');
+fprintf(IWRITE, '\n');
+fprintf(IWRITE, '%d %d %d %d %d %d %d', NNOD, NBC, NMAT, NSEC, ITP, NNE, IFORCE);
+fprintf(IWRITE, '\n');
+fprintf(IWRITE, '* COOR (m)';
+fprintf(IWRITE, '\n');
+
 % ^^* UP TO HERE  --- PROG 1 ^^*
 
 %
@@ -222,21 +236,58 @@ function [COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT] = INPUT(IREAD, ID, NNO
 HEADLINE(ID, IREAD);
 COOR = ReadMatrix(IREAD, NCO, NNOD);
 
-% ...
-% ...
-% ...
+% NFIX 束制條件
+HEADLINE(ID, IREAD);
+NFIX = ReadMatrix(IREAD, NDN, NNOD);
+
+% External Load 外力
+HEADLINE(ID, IREAD);
+EXLD = ReadMatrix(IREAD, NDN, NNOD);
+
+% IDBC 幾何形狀
+HEADLINE(ID, IREAD);
+IDBC = ReadMatrix(IREAD, 5, NBC);
+
+% VECTY
+if ITP == 6
+    HEADLINE(ID, IREAD);
+    VECTY = ReadMatrix(IREAD, 3, NBC);
+else
+    VECTY = [];
+end
+
+% IFORCE
+if IFORCE == 2
+    HEADLINE(ID, IREAD);
+    FEF = ReadMatrix(IREAD, NDE, NBC);
+else
+    FEF = [];
+end
+
+% PROP 材料性質
+HEADLINE(ID, IREAD);
+PROP = ReadMatrix(IREAD, 5, NMAT);
+
+% SECT 斷面大小
+HEADLINE(ID, IREAD);
+SECT = ReadMatrix(IREAD, 5, NSEC);
+
 
 end
 
 
 function mat = ReadMatrix(IREAD, row, col)
 % for function INPUT
+% row 和 col 互換，目前還不清楚為什麼要這樣做。感覺不太直覺。
+
     mat = zeros(row, col);
-    for j = 1:col
+
+    for j = 1 : col
         line = fgets(IREAD);
         num = str2num(line);
-        mat(:,j) = num(2:row+1);
+        mat(:, j) = num(2 : row + 1);
     end
+
 end
 
 

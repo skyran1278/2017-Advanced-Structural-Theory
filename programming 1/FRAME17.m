@@ -95,13 +95,13 @@ NDE = NDN * NNE;
 % Read the remaining data
 % [COOR,~] = INPUT(IREAD,ID,NNOD,NCO,~);
 [COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT] = ...
-INPUT(IREAD, ID, NNOD, NBC, NMAT, NSEC, ITP, NCO, NDN, NDE, IFORCE)
+INPUT(IREAD, ID, NNOD, NBC, NMAT, NSEC, ITP, NCO, NDN, NDE, IFORCE);
 
 fclose(IREAD);
 
 %DrawingStructure
-FORMAT='-r';
-drawingStructure(ITP, COOR, IDBC, NBC, LUNIT, FORMAT);
+% FORMAT='-';
+% drawingStructure(ITP, COOR, IDBC, NBC, LUNIT, FORMAT);
 
 % write out the data
 IWRITE=fopen(FILENAME,'w');
@@ -110,12 +110,27 @@ fprintf(IWRITE, '%s', TITLE);
 fprintf(IWRITE, '%s', FUNIT);
 fprintf(IWRITE, '%s', LUNIT);
 fprintf(IWRITE, '\n');
+
 fprintf(IWRITE, '* NNOD NBC NMAT NSEC ITP NNE IFORCE');
 fprintf(IWRITE, '\n');
 fprintf(IWRITE, '%d %d %d %d %d %d %d', NNOD, NBC, NMAT, NSEC, ITP, NNE, IFORCE);
 fprintf(IWRITE, '\n');
-fprintf(IWRITE, '* COOR (m)';
 fprintf(IWRITE, '\n');
+
+fprintf(IWRITE, '* COOR (m)');
+fprintf(IWRITE, '\n');
+for col = 1 : NNOD
+    fprintf(IWRITE, '%d', col);
+    for row = 1 : NCO
+        fprintf(IWRITE, ' ');
+        fprintf(IWRITE, '%f', COOR(row, col));
+    end
+    fprintf(IWRITE, '\n');
+end
+
+% function f = fprintfWithIWRITE(input)
+%     f =
+% end
 
 % ^^* UP TO HERE  --- PROG 1 ^^*
 

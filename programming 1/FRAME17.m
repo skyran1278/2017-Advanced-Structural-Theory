@@ -186,7 +186,7 @@ function [] = WriteOutMatrix(FILEID, TITLE, MATRIX, FORMAT)
 end
 
 
-function HeadLine(ID,IREAD)
+function HeadLine(ID, IREAD)
 % 這是用來忽略空白列與註解列
 
     while ~feof(IREAD)
@@ -299,7 +299,7 @@ function [COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT] = INPUT(FILENAME, TITL
     %..........................................................................
     % write out the input data to check
 
-    IWRITE=fopen([FILENAME '.opt'],'w');
+    IWRITE = fopen([FILENAME '.opt'], 'w');
 
     fprintf(IWRITE, '%s', TITLE);
     fprintf(IWRITE, '%s', FUNIT);

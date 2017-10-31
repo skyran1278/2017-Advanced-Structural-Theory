@@ -59,9 +59,9 @@ function FRAME17(FILENAME)
 %   SPACE   TRUSS   5    3    3
 %   SPACE   FRAME   6    3    6
 
-    FTYPE = {'BEAM'; 'PLANE TRUSS'; 'PLANE FRAME'; 'PLANE GRID'; ...
-        'SPACE TRUSS'; 'SPACE FRAME'};
-    IPR = [1, 2, 2, 2, 3, 3; 2, 2, 3, 3, 3, 6];
+    FTYPE = {'BEAM'; 'PLANE TRUSS'; 'PLANE FRAME'; 'PLANE GRID'; 'SPACE TRUSS'; 'SPACE FRAME'};
+    IPR = [ 1, 2, 2, 2, 3, 3; ...
+            2, 2, 3, 3, 3, 6 ];
 
     if nargin == 0 % no input argument
         % Open file with user interface
@@ -100,7 +100,7 @@ function FRAME17(FILENAME)
     fclose(IREAD);
 
     % DrawingStructure
-    FORMAT='-';
+    FORMAT = '-';
     DrawingStructure(ITP, COOR, IDBC, NBC, LUNIT, FORMAT);
 
 
@@ -327,7 +327,7 @@ function [COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT] = INPUT(FILENAME, TITL
 
     % IFORCE
     if IFORCE == 2
-        WriteOutMatrix(IWRITE, '* VECTY', FEF, '%.3f\t');
+        WriteOutMatrix(IWRITE, '* FEF', FEF, '%.3f\t');
     end
 
 

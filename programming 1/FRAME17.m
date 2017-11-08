@@ -111,13 +111,13 @@ function FRAME17(FILENAME)
     [IDND, NEQ] = IDMAT(NFIX, NNOD, NDN);
     %
     % % Compute the member DOF table:  LM(NDE,NBC)
-    % LM = MEMDOF( ~ );
+    LM = MEMDOF(NDE, NBC, IDBC, IDND);
     %
     % % Compute the semi-band width,NSBAND, of the global stiffness matrix
-    % NSBAND = SEMIBAND( ~ );
+    NSBAND = SEMIBAND(LM);
     %
     % %Form the global load vector GLOAD(NEQ) from the concentrated nodal loads
-    % GLOAD = LOAD(EXLD, ~ );
+    GLOAD = LOAD(EXLD, IDND, NDN, NNOD, NEQ);
     %
     % % ^^* UP TO HERE  --- PROG 2 ^^*
     %
@@ -488,65 +488,64 @@ function [IDND, NEQ] = IDMAT(NFIX, NNOD, NDN)
 
 end
 
-% function LM = MEMDOF(NDE, NBC, IDBC, IDND)
-% %..........................................................................
-% %
-% %   PURPOSE: Calculate the location matrix LM for each element
-% %
-% %   INPUT VARIABLES:
-% %   ...
-% %   ...
-% %
-% %   OUTPUT VARIABLES:
-% %   ...
-% %..........................................................................
-%     LM = zeros(NDE, NBC);
+function LM = MEMDOF(NDE, NBC, IDBC, IDND)
+%..........................................................................
+%
+%   PURPOSE: Calculate the location matrix LM for each element
+%
+%   INPUT VARIABLES:
+%   ...
+%   ...
+%
+%   OUTPUT VARIABLES:
+%   ...
+%..........................................................................
+    LM = zeros(NDE, NBC);
 
-%     for j = 1 : NBC
-%         LM(:,j)=[IDND(:,IDBC(1,j));IDND(:,IDBC(2,j))]
-%     end
-% end
+    for IB = 1 : NBC
+        LM(:, IB) = [IDND(:, IDBC(1, IB)); IDND(:, IDBC(2, IB))];
+    end
+end
 
-% function NSBAND = SEMIBAND(...)
-% %..........................................................................
-% %   PURPOSE: Determine the semiband width of the global stiffness
-% %            matrix
-% %
-% %   INPUT VARIABLES:
-% %   ...
-% %   ...
-% %
-% %   OUTPUT VARIABLES:
-% %     NSBAND     = semiband width
-% %..........................................................................
+function NSBAND = SEMIBAND(LM)
+%..........................................................................
+%   PURPOSE: Determine the semiband width of the global stiffness
+%            matrix
+%
+%   INPUT VARIABLES:
+%   ...
+%   ...
+%
+%   OUTPUT VARIABLES:
+%     NSBAND     = semiband width
+%..........................................................................
 
-% %   ...
-% %   ...
-% %   ...
+    LM(LM < 0) = NaN;
+    NSBAND = max(max(LM) - min(LM) + 1);
 
-% end
+end
 
-% function GLOAD = LOAD(EXLD,IDND,NDN,NNOD,NEQ)
-% %..........................................................................
-% %
-% %   PURPOSE: Forms the global load vector using the input loads EXLD
-% %
-% %   INPUT VARIABLES:
-% %     EXLD(NDN,NNOD) = input load matrix
-% %     IDND(NDN,NNOD) = matrix specifying the global DOF form nodal DOF
-% %     NDN            = number of DOFs per node
-% %     NNOD           = number of nodes
-% %     NEQ            = number of equations
-% %
-% %   INTERMEDIATE VARIABLES:
-% %     GLOAD(NEQ)     = global load vector
-% %..........................................................................
-% GLOAD = zeros(NEQ,1);
-% for j = 1:NNOD
-%     for i = 1:NDN
-%         if IDND(i,j) > 0
-%             GLOAD(IDND(i,j)) = GLOAD(IDND(i,j))+EXLD(i,j);
-%         end
-%     end
-% end
-% end
+function GLOAD = LOAD(EXLD,IDND,NDN,NNOD,NEQ)
+%..........................................................................
+%
+%   PURPOSE: Forms the global load vector using the input loads EXLD
+%
+%   INPUT VARIABLES:
+%     EXLD(NDN,NNOD) = input load matrix
+%     IDND(NDN,NNOD) = matrix specifying the global DOF form nodal DOF
+%     NDN            = number of DOFs per node
+%     NNOD           = number of nodes
+%     NEQ            = number of equations
+%
+%   INTERMEDIATE VARIABLES:
+%     GLOAD(NEQ)     = global load vector
+%..........................................................................
+GLOAD = zeros(NEQ, 1);
+for j = 1: NNOD
+    for i = 1: NDN
+        if IDND(i, j) > 0
+            GLOAD(IDND(i, j)) = GLOAD(IDND(i, j)) + EXLD(i, j);
+        end
+    end
+end
+end

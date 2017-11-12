@@ -1,4 +1,4 @@
-% R06521217 ä¹ƒå®¥ç„¶ é«˜çµHW2_2
+% R06521217 ¤D«ÉµM °ªµ²HW2_2
 
 function [ F ] = function2 (C)
   F = C * 9 / 5 + 32;

@@ -1,4 +1,4 @@
-% R06521217 ä¹ƒå®¥ç„¶ é«˜çµHW2_4
+% R06521217 ¤D«ÉµM °ªµ²HW2_4
 
 function [ area ] = integral(a, b, deltax)
 

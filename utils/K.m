@@ -1,5 +1,5 @@
 function k = K(theta)
-  % theta è§’åº¦
+  % theta ¨¤«×
 
   thetaWithRadian = AngleToRadian(theta);
 

@@ -1,5 +1,5 @@
-# 可能會出現的問題：
+# �i��|�X�{�����D�G
 
-- mac 檔案為 LF，windows 檔案為 CRLF，經測試 win7 會發生不會換行造成檔案看起來混亂。
+- mac �ɮ׬� LF�Awindows �ɮ׬� CRLF�A�g���� win7 �|�o�ͤ��|����y���ɮ׬ݰ_�ӲV�áC
 
-- matlab.m 檔編碼為 utf8，如果為預設中文系統語系的 big5 編碼，中文會出現亂碼並會造成無法預期的錯誤。
+- matlab.m �ɽs�X�� utf8�A�p�G���w�]����t�λy�t�� big5 �s�X�A����|�X�{�ýX�÷|�y���L�k�w�������~�C

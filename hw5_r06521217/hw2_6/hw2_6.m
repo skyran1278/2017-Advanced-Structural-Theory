@@ -1,6 +1,6 @@
-% R06521217 ä¹ƒå®¥ç„¶ é«˜çµHW2_6
+% R06521217 ¤D«ÉµM °ªµ²HW2_6
 
-% æ¶ˆé™¤å‰ä¸€æ¬¡ä½œæ¥­
+% ®ø°£«e¤@¦¸§@·~
 clc; clear; close all;
 
 syms x1 x2 x3;

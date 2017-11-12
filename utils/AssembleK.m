@@ -1,9 +1,9 @@
 function k = AssembleK(first, last, varargin)
-% é©ç”¨æ–¼ chain bar
-  % å¾—åˆ°çŸ©é™£å¤§å°
+% ¾A¥Î©ó chain bar
+  % ±o¨ì¯x°}¤j¤p
   kSize = nargin * 2 + 2;
 
-  % å¾—åˆ°é›¶çŸ©é™£
+  % ±o¨ì¹s¯x°}
   Kzero = zeros(kSize);
 
   firstK = Kzero;
@@ -19,7 +19,7 @@ function k = AssembleK(first, last, varargin)
 
     vararginKWithIndex = Kzero;
 
-    % æ„Ÿè¦ºå¯ä»¥å†ç°¡åŒ–
+    % ·PÄ±¥i¥H¦AÂ²¤Æ
     vararginKWithIndex(index * 2 + 1 : index * 2 + 4, index * 2 + 1 : index * 2 + 4) = varargin{index};
 
     vararginK = vararginK + vararginKWithIndex;

@@ -25,7 +25,7 @@
 function FRAME17(FILENAME)
 % FRAME17: A linear analysis program for framed structures
 %..........................................................................
-%    Programmer:  åŠ‰å¾·è¬™ã€ä¹ƒå®¥ç„¶
+%    Programmer:  ¼B¼wÁ¾¡B¤D«ÉµM
 %                 Supervised by Professor Liang-Jenq Leu
 %                 For the course: Advanced Structural Theory
 %                 Department of Civil Engineering
@@ -86,7 +86,7 @@ function FRAME17(FILENAME)
     HeadLine(ID,IREAD);
 
     line = fgets(IREAD);
-    args = str2num(line); % å¯å›å‚³ matrix
+    args = str2num(line); % ¥i¦^¶Ç matrix
     [NNOD, NBC, NMAT, NSEC, ITP, NNE, IFORCE] = deal(args(1), args(2), args(3), args(4), args(5), args(6), args(7));
     NCO = IPR(1, ITP);
     NDN = IPR(2, ITP);
@@ -152,14 +152,14 @@ function FRAME17(FILENAME)
 end
 
 function [] = WriteOutMatrix(FILEID, TITLE, MATRIX, FORMAT)
-% å¯«å…¥ TITLE èˆ‡ MATRIX åˆ° FILEID
+% ¼g¤J TITLE »P MATRIX ¨ì FILEID
 
     [rowLength, colLength] = size(MATRIX);
 
-    % æ¯”è¼ƒç°¡å–®ç›´è¦ºçš„å¯«æ³•
+    % ¤ñ¸ûÂ²³æª½Ä±ªº¼gªk
     % for col = 1 : colLength
 
-    %     % è¨ˆæ•¸å™¨
+    %     % ­p¼Æ¾¹
     %     fprintf(FILEID, '%d', col);
 
     %     for row = 1 : rowLength
@@ -177,8 +177,8 @@ function [] = WriteOutMatrix(FILEID, TITLE, MATRIX, FORMAT)
     fprintf(FILEID, TITLE);
     fprintf(FILEID, '\n');
 
-    % fprintf ä¸€åˆ—ä¸€åˆ—å°
-    % é€™å€‹æ–¹æ³•è¦ç†Ÿæ‚‰ matlab çš„ function æ‰æ¯”è¼ƒç›´è¦º
+    % fprintf ¤@¦C¤@¦C¦L
+    % ³o­Ó¤èªk­n¼ô±x matlab ªº function ¤~¤ñ¸ûª½Ä±
     fprintf(FILEID, ['%d\t', repmat(FORMAT, 1, rowLength), '\n'], indexMatrix);
 
     fprintf(FILEID, '\n');
@@ -187,7 +187,7 @@ end
 
 
 function HeadLine(ID, IREAD)
-% é€™æ˜¯ç”¨ä¾†å¿½ç•¥ç©ºç™½åˆ—èˆ‡è¨»è§£åˆ—
+% ³o¬O¥Î¨Ó©¿²¤ªÅ¥Õ¦C»Pµù¸Ñ¦C
 
     while ~feof(IREAD)
         temp = fgets(IREAD);
@@ -260,15 +260,15 @@ function [COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT] = INPUT(FILENAME, TITL
     HeadLine(ID, IREAD);
     COOR = ReadMatrix(IREAD, NCO, NNOD);
 
-    % NFIX æŸåˆ¶æ¢ä»¶
+    % NFIX §ô¨î±ø¥ó
     HeadLine(ID, IREAD);
     NFIX = ReadMatrix(IREAD, NDN, NNOD);
 
-    % External Load å¤–åŠ›
+    % External Load ¥~¤O
     HeadLine(ID, IREAD);
     EXLD = ReadMatrix(IREAD, NDN, NNOD);
 
-    % IDBC å¹¾ä½•å½¢ç‹€
+    % IDBC ´X¦ó§Îª¬
     HeadLine(ID, IREAD);
     IDBC = ReadMatrix(IREAD, 5, NBC);
 
@@ -288,11 +288,11 @@ function [COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT] = INPUT(FILENAME, TITL
         FEF = [];
     end
 
-    % PROP ææ–™æ€§è³ª
+    % PROP §÷®Æ©Ê½è
     HeadLine(ID, IREAD);
     PROP = ReadMatrix(IREAD, 5, NMAT);
 
-    % SECT æ–·é¢å¤§å°
+    % SECT Â_­±¤j¤p
     HeadLine(ID, IREAD);
     SECT = ReadMatrix(IREAD, 5, NSEC);
 
@@ -343,7 +343,7 @@ end
 
 function mat = ReadMatrix(IREAD, row, col)
 % for function INPUT
-% row å’Œ col äº’æ›ï¼Œç›®å‰é‚„ä¸æ¸…æ¥šç‚ºä»€éº¼è¦é€™æ¨£åšã€‚æ„Ÿè¦ºä¸å¤ªç›´è¦ºã€‚
+% row ©M col ¤¬´«¡A¥Ø«eÁÙ¤£²M·¡¬°¤°»ò­n³o¼Ë°µ¡C·PÄ±¤£¤Óª½Ä±¡C
 
     mat = zeros(row, col);
 
@@ -357,7 +357,7 @@ end
 
 
 function DrawingStructure(ITP, COOR, IDBC, NBC, LUNIT, FORMAT)
-% æ²’æœ‰çœ‹è£¡é¢çš„å…§å®¹
+% ¨S¦³¬İ¸Ì­±ªº¤º®e
 
     switch ITP
         case 1

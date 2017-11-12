@@ -1,6 +1,6 @@
-% R06521217 ä¹ƒå®¥ç„¶ é«˜çµHW2_1
+% R06521217 ¤D«ÉµM °ªµ²HW2_1
 
-% æ¶ˆé™¤å‰ä¸€æ¬¡ä½œæ¥­
+% ®ø°£«e¤@¦¸§@·~
 clc; clear; close all;
 
 A = magic(3)

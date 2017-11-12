@@ -1,16 +1,16 @@
 %%
-% æ¶ˆé™¤å‰ä¸€æ¬¡ä½œæ¥­
+% ®ø°£«e¤@¦¸§@·~
 clc; clear; close all;
 
-% é¡Œç›®çµ¦å®š
-% æ›ç®—æˆ matlab å¼§åº¦
+% ÃD¥Øµ¹©w
+% ´«ºâ¦¨ matlab ©·«×
 theta = 30 * pi / 180;
 
-%å‡è¨­ h ç‚º 1 å–®ä½
+%°²³] h ¬° 1 ³æ¦ì
 h = 1;
 
-% çµ¦å®š delta ç‚º 0 ~ 2.2 é€£çºŒçš„å€¼
-% delta ç‚ºçŸ©é™£ï¼Œä¹‹å¾Œçš„è¨ˆç®—éœ€è¦ç”¨çŸ©é™£é‹ç®—
+% µ¹©w delta ¬° 0 ~ 2.2 ³sÄòªº­È
+% delta ¬°¯x°}¡A¤§«áªº­pºâ»İ­n¥Î¯x°}¹Bºâ
 delta = 0 : 0.01 : 2.2;
 
 L = h / sin(theta);
@@ -24,11 +24,11 @@ PDivideEaDivideA1 = 2 .* epsilon .* (h - delta) ./ Lprum;
 % Ea * epsilon + 4 * Ea * epsilon ^ 3
 PDivideEaDivideA2 = 2 .* (epsilon + 4 .* epsilon .^ 3) .* (h - delta) ./ Lprum;
 
-% ç•«åœ–
+% µe¹Ï
 plot(delta / h, PDivideEaDivideA1, 'k-', delta / h, PDivideEaDivideA2, 'r--');
 
 %%
-% é©—è­‰é¡Œç›®çµ¦å®šçš„é» delta / h = 0.3
+% ÅçÃÒÃD¥Øµ¹©wªºÂI delta / h = 0.3
 hold on
 
 LprumPoint = sqrt((h - 0.3) ^ 2 + (L * cos(theta)) ^ 2 );
@@ -46,9 +46,9 @@ nonlinearPointValue = num2str(nonlinearPoint);
 text(0.3, nonlinearPoint, nonlinearPointValue, 'HorizontalAlignment', 'right');
 
 %%
-% åŠ ä¸Šåœ–ä¾‹
+% ¥[¤W¹Ï¨Ò
 
-title('P / (Ea * A) èˆ‡ delta / h é—œä¿‚åœ–');
+title('P / (Ea * A) »P delta / h Ãö«Y¹Ï');
 
 legend('linear', 'nonlinear', 'linearPoint', 'nonlinearPoint', 'location', 'NorthEast');
 

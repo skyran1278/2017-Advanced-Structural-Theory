@@ -1,4 +1,4 @@
-% æ¶ˆé™¤å‰ä¸€æ¬¡ä½œæ¥­
+% ®ø°£«e¤@¦¸§@·~
 clc; clear; close all;
 
 k1 = K(-60)
@@ -9,7 +9,7 @@ k4 = K(45)
 % first, last, ...
 k = AssembleK(k1, k4, k2, k3)
 
-% åŠ ä¸Š E * A / L
+% ¥[¤W E * A / L
 syms E A L;
 
 K1 = E * A / L * k1;

@@ -1,7 +1,7 @@
-% æ¶ˆé™¤å‰ä¸€æ¬¡ä½œæ¥­
+% ®ø°£«e¤@¦¸§@·~
 clc; clear; close all;
 
-% éœ€è¦æº–ç¢ºå€åˆ†çŸ©é™£ä¹˜æ³• .* é€å…ƒç´  * ä¸€èˆ¬çŸ©é™£ä¹˜æ³•
+% »Ý­n·Ç½T°Ï¤À¯x°}­¼ªk .* ³v¤¸¯À * ¤@¯ë¯x°}­¼ªk
 syms E A;
 
 

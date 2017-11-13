@@ -35,94 +35,94 @@ function FRAME17(FILENAME)
 %   SPACE   TRUSS   5    3    3
 %   SPACE   FRAME   6    3    6
 
-    FTYPE = {'BEAM'; 'PLANE TRUSS'; 'PLANE FRAME'; 'PLANE GRID'; 'SPACE TRUSS'; 'SPACE FRAME'};
-    IPR = [ 1, 2, 2, 2, 3, 3; ...
-            2, 2, 3, 3, 3, 6 ];
+FTYPE = {'BEAM'; 'PLANE TRUSS'; 'PLANE FRAME'; 'PLANE GRID'; 'SPACE TRUSS'; 'SPACE FRAME'};
+IPR = [ 1, 2, 2, 2, 3, 3; ...
+    2, 2, 3, 3, 3, 6 ];
 
-    if nargin == 0 % no input argument
-        % Open file with user interface
-        [~, FILENAME] = fileparts(uigetfile('*.ipt', 'Select Input file'));
-    end
+if nargin == 0 % no input argument
+    % Open file with user interface
+    [~, FILENAME] = fileparts(uigetfile('*.ipt', 'Select Input file'));
+end
 
-    % Get starting time
-    startTime = clock;
+% Get starting time
+startTime = clock;
 
-    % FILENAME.ipt is the input data file.
-    % FILENAME.dat includes the output of the input data and
-    %   the nodal displacements and member end forces.
+% FILENAME.ipt is the input data file.
+% FILENAME.dat includes the output of the input data and
+%   the nodal displacements and member end forces.
 
-    IREAD = fopen([FILENAME '.ipt'], 'r');
+IREAD = fopen([FILENAME '.ipt'], 'r');
 
-    % Read in the problem title and the structural data
-    TITLE = fgets(IREAD);
-    FUNIT = fgets(IREAD);
-    LUNIT = fgets(IREAD);
+% Read in the problem title and the structural data
+TITLE = fgets(IREAD);
+FUNIT = fgets(IREAD);
+LUNIT = fgets(IREAD);
 
-    ID = '*';
-    HeadLine(ID,IREAD);
+ID = '*';
+HeadLine(ID,IREAD);
 
-    line = fgets(IREAD);
-    args = str2num(line); % 可回傳 matrix
-    [NNOD, NBC, NMAT, NSEC, ITP, NNE, IFORCE] = deal(args(1), args(2), args(3), args(4), args(5), args(6), args(7));
-    NCO = IPR(1, ITP);
-    NDN = IPR(2, ITP);
-    NDE = NDN * NNE;
+line = fgets(IREAD);
+args = str2num(line); % 可回傳 matrix
+[NNOD, NBC, NMAT, NSEC, ITP, NNE, IFORCE] = deal(args(1), args(2), args(3), args(4), args(5), args(6), args(7));
+NCO = IPR(1, ITP);
+NDN = IPR(2, ITP);
+NDE = NDN * NNE;
 
-    % Read the remaining data
-    % [COOR,~] = INPUT(IREAD,ID,NNOD,NCO,~);
-    [COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT] = ...
+% Read the remaining data
+% [COOR,~] = INPUT(IREAD,ID,NNOD,NCO,~);
+[COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT] = ...
     INPUT(FILENAME, TITLE, FUNIT, LUNIT, IREAD, ID, NNOD, NBC, NMAT, NSEC, ITP, NCO, NDN, NDE, IFORCE, NNE);
 
-    fclose(IREAD);
+fclose(IREAD);
 
-    % DrawingStructure
-    FORMAT = '-';
-    DrawingStructure(ITP, COOR, IDBC, NBC, LUNIT, FORMAT);
+% DrawingStructure
+FORMAT = '-';
+DrawingStructure(ITP, COOR, IDBC, NBC, LUNIT, FORMAT);
 
 
-    % ^^* UP TO HERE  --- PROG 1 ^^*
+% ^^* UP TO HERE  --- PROG 1 ^^*
 
-    %
-    % % DOF numbering
-    [IDND, NEQ] = IDMAT(NFIX, NNOD, NDN)
-    %
-    % % Compute the member DOF table:  LM(NDE,NBC)
-    LM = MEMDOF(NDE, NBC, IDBC, IDND)
-    %
-    % % Compute the semi-band width,NSBAND, of the global stiffness matrix
-    NSBAND = SEMIBAND(LM)
-    %
-    % %Form the global load vector GLOAD(NEQ) from the concentrated nodal loads
-    GLOAD = LOAD(EXLD, IDND, NDN, NNOD, NEQ)
-    %
-    % % ^^* UP TO HERE  --- PROG 2 ^^*
-    %
-    % % Form the global stiffness matrix GLK(NEQ,NSBAND) and obtain the
-    % % equivalent nodal vector by assembling -(fixed-end forces) of each member
-    % % into the load vector.
-    % [GLK,GLOAD] = FORMKP(COOR,IDBC,VECTY,PROP,SECT,LM,FEF,GLOAD,NNOD,NBC,NMAT...
-    %     ,NSEC,IFORCE,ITP,NCO,NDN,NDE,NNE,NEQ);
-    %
-    % % ^^* UP TO HERE  --- PROG 3 ^^*
-    %
-    % DISP = SOLVE(GLK, ~ );
-    %
-    % % Determine the member end forces ELFOR(NDE,NBC)
-    % ELFOR = FORCE( ~ );
-    %
-    % % Get ending time and count the elapased time
-    % endTime = clock;
-    %
-    % % Print out the results
-    % IWRITE = fopen([FILENAME '.dat'], 'w');
-    % OUTPUT( ~ );
-    % fclose(IWRITE);
-    %
-    % IGW = fopen([FILENAME '.txt'], 'w');
-    % GRAPHOUTPUT(IGW,COOR,NFIX,EXLD,IDBC,FEF,PROP,SECT,LM,IDND,DISP,ELFOR,NNOD,...
-    %     NDN,NCO,NDE,NEQ,NBC,NMAT,NSEC,ITP,NNE,IFORCE,FUNIT,LUNIT);
-    % fclose(IGW);
-    %
-    % % ^^* UP TO HERE  --- PROG 4 ^^*
+%
+% % DOF numbering
+[IDND, NEQ] = IDMAT(NFIX, NNOD, NDN)
+%
+% % Compute the member DOF table:  LM(NDE,NBC)
+LM = MEMDOF(NDE, NBC, IDBC, IDND)
+%
+% % Compute the semi-band width,NSBAND, of the global stiffness matrix
+NSBAND = SEMIBAND(LM)
+%
+% %Form the global load vector GLOAD(NEQ) from the concentrated nodal loads
+GLOAD = LOAD(EXLD, IDND, NDN, NNOD, NEQ)
+%
+% % ^^* UP TO HERE  --- PROG 2 ^^*
+%
+% % Form the global stiffness matrix GLK(NEQ,NSBAND) and obtain the
+% % equivalent nodal vector by assembling -(fixed-end forces) of each member
+% % into the load vector.
+% [GLK,GLOAD] = FORMKP(COOR,IDBC,VECTY,PROP,SECT,LM,FEF,GLOAD,NNOD,NBC,NMAT...
+%     ,NSEC,IFORCE,ITP,NCO,NDN,NDE,NNE,NEQ);
+%
+% % ^^* UP TO HERE  --- PROG 3 ^^*
+%
+% DISP = SOLVE(GLK, ~ );
+%
+% % Determine the member end forces ELFOR(NDE,NBC)
+% ELFOR = FORCE( ~ );
+%
+% % Get ending time and count the elapased time
+% endTime = clock;
+%
+% % Print out the results
+% IWRITE = fopen([FILENAME '.dat'], 'w');
+% OUTPUT( ~ );
+% fclose(IWRITE);
+%
+% IGW = fopen([FILENAME '.txt'], 'w');
+% GRAPHOUTPUT(IGW,COOR,NFIX,EXLD,IDBC,FEF,PROP,SECT,LM,IDND,DISP,ELFOR,NNOD,...
+%     NDN,NCO,NDE,NEQ,NBC,NMAT,NSEC,ITP,NNE,IFORCE,FUNIT,LUNIT);
+% fclose(IGW);
+%
+% % ^^* UP TO HERE  --- PROG 4 ^^*
 
 end

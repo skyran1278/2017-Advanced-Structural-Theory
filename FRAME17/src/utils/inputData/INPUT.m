@@ -57,86 +57,51 @@ function [COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT] = INPUT(FILENAME, TITL
 %                       (5,*) = omitted.
 %..........................................................................
 
-    % COOR - Nodal coordinates
+% COOR - Nodal coordinates
+HeadLine(ID, IREAD);
+COOR = ReadMatrix(IREAD, NCO, NNOD);
+
+% NFIX 束制條件
+HeadLine(ID, IREAD);
+NFIX = ReadMatrix(IREAD, NDN, NNOD);
+
+% External Load 外力
+HeadLine(ID, IREAD);
+EXLD = ReadMatrix(IREAD, NDN, NNOD);
+
+% IDBC 幾何形狀
+HeadLine(ID, IREAD);
+IDBC = ReadMatrix(IREAD, 5, NBC);
+
+% VECTY
+if ITP == 6
     HeadLine(ID, IREAD);
-    COOR = ReadMatrix(IREAD, NCO, NNOD);
+    VECTY = ReadMatrix(IREAD, 3, NBC);
+else
+    VECTY = [];
+end
 
-    % NFIX 束制條件
+% IFORCE
+if IFORCE == 2
     HeadLine(ID, IREAD);
-    NFIX = ReadMatrix(IREAD, NDN, NNOD);
+    FEF = ReadMatrix(IREAD, NDE, NBC);
+else
+    FEF = [];
+end
 
-    % External Load 外力
-    HeadLine(ID, IREAD);
-    EXLD = ReadMatrix(IREAD, NDN, NNOD);
+% PROP 材料性質
+HeadLine(ID, IREAD);
+PROP = ReadMatrix(IREAD, 5, NMAT);
 
-    % IDBC 幾何形狀
-    HeadLine(ID, IREAD);
-    IDBC = ReadMatrix(IREAD, 5, NBC);
+% SECT 斷面大小
+HeadLine(ID, IREAD);
+SECT = ReadMatrix(IREAD, 5, NSEC);
 
-    % VECTY
-    if ITP == 6
-        HeadLine(ID, IREAD);
-        VECTY = ReadMatrix(IREAD, 3, NBC);
-    else
-        VECTY = [];
-    end
+%..........................................................................
+% write out the input data to check
 
-    % IFORCE
-    if IFORCE == 2
-        HeadLine(ID, IREAD);
-        FEF = ReadMatrix(IREAD, NDE, NBC);
-    else
-        FEF = [];
-    end
+PrintInputData(FILENAME, TITLE, FUNIT, LUNIT, NNOD, NBC, NMAT, NSEC, ITP, IFORCE, NNE, COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT);
 
-    % PROP 材料性質
-    HeadLine(ID, IREAD);
-    PROP = ReadMatrix(IREAD, 5, NMAT);
-
-    % SECT 斷面大小
-    HeadLine(ID, IREAD);
-    SECT = ReadMatrix(IREAD, 5, NSEC);
-
-    %..........................................................................
-    % write out the input data to check
-
-    IWRITE = fopen([FILENAME '.opt'], 'w');
-
-    fprintf(IWRITE, '%s', TITLE);
-    fprintf(IWRITE, '%s', FUNIT);
-    fprintf(IWRITE, '%s', LUNIT);
-    fprintf(IWRITE, '\n');
-
-    fprintf(IWRITE, '* NNOD NBC NMAT NSEC ITP NNE IFORCE');
-    fprintf(IWRITE, '\n');
-    fprintf(IWRITE, '%d %d %d %d %d %d %d', NNOD, NBC, NMAT, NSEC, ITP, NNE, IFORCE);
-    fprintf(IWRITE, '\n');
-    fprintf(IWRITE, '\n');
-
-    WriteOutMatrix(IWRITE, '* COOR (m)', COOR, '%.3f\t');
-
-    WriteOutMatrix(IWRITE, '* NFIX', NFIX, '%d\t');
-
-    WriteOutMatrix(IWRITE, '* External Load (kN)', EXLD, '%.3f\t');
-
-    WriteOutMatrix(IWRITE, '* IDBC', IDBC, '%d\t');
-
-    % VECTY
-    if ITP == 6
-        WriteOutMatrix(IWRITE, '* VECTY', VECTY, '%.3f\t');
-    end
-
-    % IFORCE
-    if IFORCE == 2
-        WriteOutMatrix(IWRITE, '* FEF', FEF, '%.3f\t');
-    end
-
-
-    WriteOutMatrix(IWRITE, '* PROP', PROP, '%.3f\t');
-
-    WriteOutMatrix(IWRITE, '* SECT', SECT, '%.3f\t');
-
-    %..........................................................................
-
+%..........................................................................
 
 end

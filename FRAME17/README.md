@@ -45,4 +45,3 @@
         You should check IDND, NEQ, LM, and NSBAND.
         Compare the results with those obtained by hand calculations.
         (You should upload the results to the Ceiba. )
-

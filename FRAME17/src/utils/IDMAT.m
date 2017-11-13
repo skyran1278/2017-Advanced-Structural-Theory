@@ -18,25 +18,25 @@ function [IDND, NEQ] = IDMAT(NFIX, NNOD, NDN)
 %   INTERMEDIATE VARIABLES:
 %     N                = fixed d.o.f. numbering
 %..........................................................................
-    IDND = zeros(NDN, NNOD);
+IDND = zeros(NDN, NNOD);
 
-    positive = 0;
-    negative = 0;
+positive = 0;
+negative = 0;
 
-    for col = 1 : NNOD
-        for row = 1 : NDN
-            if NFIX(row, col) == 0
-                positive = positive + 1;
-                IDND(row, col) = positive;
-            elseif NFIX(row, col) < 0
-                negative = negative - 1;
-                IDND(row, col) = negative;
-            else
-                IDND(row, col) = IDND(row, NFIX(row, col));
-            end
+for col = 1 : NNOD
+    for row = 1 : NDN
+        if NFIX(row, col) == 0
+            positive = positive + 1;
+            IDND(row, col) = positive;
+        elseif NFIX(row, col) < 0
+            negative = negative - 1;
+            IDND(row, col) = negative;
+        else
+            IDND(row, col) = IDND(row, NFIX(row, col));
         end
     end
+end
 
-    NEQ = positive;
+NEQ = positive;
 
 end

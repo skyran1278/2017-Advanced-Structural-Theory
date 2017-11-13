@@ -11,7 +11,7 @@ function NSBAND = SEMIBAND(LM)
 %     NSBAND     = semiband width
 %..........................................................................
 
-    LM(LM < 0) = NaN;
-    NSBAND = max(max(LM) - min(LM) + 1);
+LM(LM < 0) = NaN;
+NSBAND = max(max(LM) - min(LM) + 1);
 
 end

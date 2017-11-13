@@ -10,9 +10,10 @@ function LM = MEMDOF(NDE, NBC, IDBC, IDND)
 %   OUTPUT VARIABLES:
 %   ...
 %..........................................................................
-    LM = zeros(NDE, NBC);
+LM = zeros(NDE, NBC);
 
-    for IB = 1 : NBC
-        LM(:, IB) = [IDND(:, IDBC(1, IB)); IDND(:, IDBC(2, IB))];
-    end
+for IB = 1 : NBC
+    LM(:, IB) = [IDND(:, IDBC(1, IB)); IDND(:, IDBC(2, IB))];
+end
+
 end

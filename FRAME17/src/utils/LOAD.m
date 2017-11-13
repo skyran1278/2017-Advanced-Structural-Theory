@@ -13,12 +13,13 @@ function GLOAD = LOAD(EXLD,IDND,NDN,NNOD,NEQ)
 %   INTERMEDIATE VARIABLES:
 %     GLOAD(NEQ)     = global load vector
 %..........................................................................
-    GLOAD = zeros(NEQ, 1);
-    for j = 1: NNOD
-        for i = 1: NDN
-            if IDND(i, j) > 0
-                GLOAD(IDND(i, j)) = GLOAD(IDND(i, j)) + EXLD(i, j);
-            end
+GLOAD = zeros(NEQ, 1);
+for j = 1: NNOD
+    for i = 1: NDN
+        if IDND(i, j) > 0
+            GLOAD(IDND(i, j)) = GLOAD(IDND(i, j)) + EXLD(i, j);
         end
     end
+end
+
 end

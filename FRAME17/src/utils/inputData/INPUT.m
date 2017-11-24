@@ -100,7 +100,7 @@ SECT = ReadMatrix(IREAD, 5, NSEC);
 %..........................................................................
 % write out the input data to check
 
-PrintInputData(FILENAME, TITLE, FUNIT, LUNIT, NNOD, NBC, NMAT, NSEC, ITP, IFORCE, NNE, COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT);
+% PrintInputData(FILENAME, TITLE, FUNIT, LUNIT, NNOD, NBC, NMAT, NSEC, ITP, IFORCE, NNE, COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT);
 
 %..........................................................................
 

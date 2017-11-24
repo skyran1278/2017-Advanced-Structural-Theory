@@ -1,0 +1,36 @@
+probC
+kN
+mm
+
+* NNOD NBC NMAT NSEC ITP NNE IFORCE
+  3    2   1    1    4   2   1
+
+* COOR (mm)
+1  0*10^3      0*10^3
+2  7.416*10^3  3*10^3
+3  15.416*10^3 3*10^3
+
+
+* NFIX
+1  -1 -1
+2   0  0
+3  -1 -1
+
+
+* External Load (kN): Px, Py
+1   0  0
+2   0  0
+3   0  0
+
+
+* IDBC
+1   1  2  1  1  0
+2   2  3  1  1  0
+
+
+* PROP
+1 120 0 0 0 0
+
+* SECT
+1 120 0 0 0 0
+

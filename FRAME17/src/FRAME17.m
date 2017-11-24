@@ -83,25 +83,24 @@ DrawingStructure(ITP, COOR, IDBC, NBC, LUNIT, FORMAT);
 % ^^* UP TO HERE  --- PROG 1 ^^*
 
 %
-% % DOF numbering
-[IDND, NEQ] = IDMAT(NFIX, NNOD, NDN)
+% DOF numbering
+[IDND, NEQ] = IDMAT(NFIX, NNOD, NDN);
 %
-% % Compute the member DOF table:  LM(NDE,NBC)
-LM = MEMDOF(NDE, NBC, IDBC, IDND)
+% Compute the member DOF table:  LM(NDE,NBC)
+LM = MEMDOF(NDE, NBC, IDBC, IDND);
 %
-% % Compute the semi-band width,NSBAND, of the global stiffness matrix
-NSBAND = SEMIBAND(LM)
+% Compute the semi-band width,NSBAND, of the global stiffness matrix
+NSBAND = SEMIBAND(LM);
 %
-% %Form the global load vector GLOAD(NEQ) from the concentrated nodal loads
-GLOAD = LOAD(EXLD, IDND, NDN, NNOD, NEQ)
+% Form the global load vector GLOAD(NEQ) from the concentrated nodal loads
+GLOAD = LOAD(EXLD, IDND, NDN, NNOD, NEQ);
 %
-% % ^^* UP TO HERE  --- PROG 2 ^^*
+% ^^* UP TO HERE  --- PROG 2 ^^*
 %
-% % Form the global stiffness matrix GLK(NEQ,NSBAND) and obtain the
-% % equivalent nodal vector by assembling -(fixed-end forces) of each member
-% % into the load vector.
-% [GLK,GLOAD] = FORMKP(COOR,IDBC,VECTY,PROP,SECT,LM,FEF,GLOAD,NNOD,NBC,NMAT...
-%     ,NSEC,IFORCE,ITP,NCO,NDN,NDE,NNE,NEQ);
+% Form the global stiffness matrix GLK(NEQ,NSBAND) and obtain the
+% equivalent nodal vector by assembling -(fixed-end forces) of each member
+% into the load vector.
+[GLK, GLOAD] = FORMKP(COOR, IDBC, VECTY, PROP, SECT, LM, FEF, GLOAD, NNOD, NBC, NMAT, NSEC, IFORCE, ITP, NCO, NDN, NDE, NNE, NEQ);
 %
 % % ^^* UP TO HERE  --- PROG 3 ^^*
 %

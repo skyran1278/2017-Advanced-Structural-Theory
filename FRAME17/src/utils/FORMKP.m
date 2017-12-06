@@ -48,8 +48,8 @@ for IB = 1 : NBC
     % -----------------------------------------------------------------
     % ****** ADDFEF will be added in PROG4 *****
     if IFORCE == 2
-        EQLOAD = - T' * FEF(:, IB);
-        GLOAD(GDOF) = GLOAD(GDOF) + EQLOAD(LDOF);
+        EFEQ = - T' * FEF(:, IB);
+        GLOAD(GDOF) = GLOAD(GDOF) + EFEQ(LDOF);
     end
 end
 end

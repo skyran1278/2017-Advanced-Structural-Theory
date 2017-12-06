@@ -50,7 +50,6 @@ startTime = clock;
 % FILENAME.ipt is the input data file.
 % FILENAME.dat includes the output of the input data and
 %   the nodal displacements and member end forces.
-
 IREAD = fopen([FILENAME '.ipt'], 'r');
 
 % Read in the problem title and the structural data
@@ -69,7 +68,6 @@ NDN = IPR(2, ITP);
 NDE = NDN * NNE;
 
 % Read the remaining data
-% [COOR,~] = INPUT(IREAD,ID,NNOD,NCO,~);
 [COOR, NFIX, EXLD, IDBC, VECTY, FEF, PROP, SECT] = ...
     INPUT(FILENAME, TITLE, FUNIT, LUNIT, IREAD, ID, NNOD, NBC, NMAT, NSEC, ITP, NCO, NDN, NDE, IFORCE, NNE);
 

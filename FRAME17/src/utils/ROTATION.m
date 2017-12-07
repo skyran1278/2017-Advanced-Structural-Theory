@@ -29,7 +29,10 @@ CO = COOR(:, IDBC(1 : 2, IB))';
 RL = sqrt(sum((CO(2, :) - CO(1, :)) .^ 2));
 
 x = CO(2, 1) - CO(1, 1);
-y = CO(2, 2) - CO(1, 2);
+
+if ITP ~= 1
+    y = CO(2, 2) - CO(1, 2);
+end
 
 switch(ITP)
     case 1 % Beam (lies in the x-y plane)

@@ -13,7 +13,7 @@ function [IDND, NEQ] = IDMAT(NFIX, NNOD, NDN)
 %
 %   OUTPUT VARIABLES:
 %     IDND(NDN,NNOD)   = matrix specifying the global DOF from nodal DOF
-%     NEQ              = number of equations
+%     NEQ              = number of equations 總共幾條方程式
 %
 %   INTERMEDIATE VARIABLES:
 %     N                = fixed d.o.f. numbering

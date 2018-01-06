@@ -25,13 +25,18 @@ GLK = zeros(NEQ);
 
 for IB = 1 : NBC
     % Calculate the element rotation matrix ROT and the length RL
+    % T(Matrix)：transformation matrix
+    % RL(Double)：桿件長度
     [T, RL] = ROTATION(COOR, VECTY, IDBC, IB, ITP, NCO, NDE);
 
     % Calculate the element stiffness matrix, EE
+    % EE(Matrix)：得到該 ITP 的勁度矩陣
     EE = ELKE(ITP, NDE, IDBC, PROP, SECT, IB, RL);
 
     % Get element DOF
+    % LDOF(Array)：找到 > 0 的位置
     LDOF = find(LM(:, IB) > 0);
+    % GDOF(Array)：取出該自由度
     GDOF = LM(LDOF, IB);
 
     % Transform the element stiffness matrix from the local axes to global
@@ -52,4 +57,5 @@ for IB = 1 : NBC
         GLOAD(GDOF) = GLOAD(GDOF) + EFEQ(LDOF);
     end
 end
+
 end

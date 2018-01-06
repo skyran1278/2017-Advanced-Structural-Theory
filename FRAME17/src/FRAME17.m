@@ -10,16 +10,16 @@ function FRAME17(FILENAME)
 %..........................................................................
 
 %    VARIABLES:
-%        NNOD   = number of nodes
-%        NBC    = number of Beam-column elements
-%        NCO    = number of coordinates per node
-%        NDN    = number of DOFs per node
-%        NNE    = number of nodes per element
-%        NDE    = number of DOFs per element
-%        NMAT   = number of material types
-%        NSEC   = number of cross-sectional types
+%        NNOD   = number of nodes 幾個節點
+%        NBC    = number of Beam-column elements 幾個桿件
+%        NCO    = number of coordinates per node 幾個維度
+%        NDN    = number of DOFs per node 有幾個自由度
+%        NNE    = number of nodes per element 一個桿件有幾個節點
+%        NDE    = number of DOFs per element 一個桿件有幾個自由度
+%        NMAT   = number of material types 材料種類
+%        NSEC   = number of cross-sectional types 斷面
 %        IFORCE = 1 if only concentrated loads are applied
-%               = 2 if fixed-end forces are required.
+%               = 2 if fixed-end forces are required. 非集中力的時候需要修正
 %                   (e.g. problems with distributed loads, fabrication
 %                   errors, temperature change, or support settlement)
 %    CHARACTERS
@@ -80,21 +80,26 @@ DrawingStructure(ITP, COOR, IDBC, NBC, LUNIT, FORMAT);
 
 % ^^* UP TO HERE  --- PROG 1 ^^*
 
-%
+
 % DOF numbering
+% IDND(Matrix)：由 NFIX 累加自由度的 matrix
+% NEQ(Integer)：總共幾條方程式
 [IDND, NEQ] = IDMAT(NFIX, NNOD, NDN);
-%
+
 % Compute the member DOF table:  LM(NDE,NBC)
+% LM(Matrix)：把 IDND 從節點自由度換成桿件自由度
 LM = MEMDOF(NDE, NBC, IDBC, IDND);
-%
+
 % Compute the semi-band width,NSBAND, of the global stiffness matrix
+% NSBAND(Integer)：帶寬
 NSBAND = SEMIBAND(LM);
-%
+
 % Form the global load vector GLOAD(NEQ) from the concentrated nodal loads
+% GLOAD(Array)：把集中力轉換成方程式型態
 GLOAD = LOAD(EXLD, IDND, NDN, NNOD, NEQ);
-%
+
 % ^^* UP TO HERE  --- PROG 2 ^^*
-%
+
 % Form the global stiffness matrix GLK(NEQ,NSBAND) and obtain the
 % equivalent nodal vector by assembling -(fixed-end forces) of each member
 % into the load vector.

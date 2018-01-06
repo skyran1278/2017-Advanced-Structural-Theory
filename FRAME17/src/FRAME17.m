@@ -103,27 +103,32 @@ GLOAD = LOAD(EXLD, IDND, NDN, NNOD, NEQ);
 % Form the global stiffness matrix GLK(NEQ,NSBAND) and obtain the
 % equivalent nodal vector by assembling -(fixed-end forces) of each member
 % into the load vector.
+% GLK(Matrix)：Assemble Stiffness
+% GLOAD(Array)：FEF 修正集中力
 [GLK, GLOAD] = FORMKP(COOR, IDBC, VECTY, PROP, SECT, LM, FEF, GLOAD, NNOD, NBC, NMAT, NSEC, IFORCE, ITP, NCO, NDN, NDE, NNE, NEQ);
 
 % ^^* UP TO HERE  --- PROG 3 ^^*
 
-DISP = SOLVE(GLK, GLOAD);
+% DELTA(Array)：delta => K * delta = P
+DELTA = SOLVE(GLK, GLOAD);
 
-% % Determine the member end forces ELFOR(NDE,NBC)
-% ELFOR = FORCE( ~ );
+% Determine the member end forces ELFOR(NDE,NBC)
+% ELFOR(Matrix)：內力
+ELFOR = FORCE(COOR, IDBC, VECTY, PROP, SECT, LM, FEF, GLOAD, NNOD, NBC, NMAT...
+    , NSEC, IFORCE, ITP, NCO, NDN, NDE, NNE, NEQ, DELTA);
 
-% % Get ending time and count the elapased time
-% endTime = clock;
+% Get ending time and count the elapased time
+endTime = clock;
 
-% % Print out the results
-% IWRITE = fopen([FILENAME '.dat'], 'w');
-% OUTPUT(IWRITE, TITLE, FILENAME, FTYPE, FUNIT, LUNIT, startTime, endTime, ...
-%     NNOD, NBC, NMAT, NSEC, NEQ, NCO, NDN, NNE, ITP, COOR, NFIX, PROP, SECT, IDBC, IDND, ...
-%     VECTY, EXLD, IFORCE, FEF, DELTA, ELFOR, NSBAND);
-% fclose(IWRITE);
+% Print out the results
+IWRITE = fopen([FILENAME '.dat'], 'w');
+OUTPUT(IWRITE, TITLE, FILENAME, FTYPE, FUNIT, LUNIT, startTime, endTime, ...
+    NNOD, NBC, NMAT, NSEC, NEQ, NCO, NDN, NNE, ITP, COOR, NFIX, PROP, SECT, IDBC, IDND, ...
+    VECTY, EXLD, IFORCE, FEF, DELTA, ELFOR, NSBAND);
+fclose(IWRITE);
 
 % IGW = fopen([FILENAME '.txt'], 'w');
-% GRAPHOUTPUT(IGW,COOR,NFIX,EXLD,IDBC,FEF,PROP,SECT,LM,IDND,DISP,ELFOR,NNOD,...
+% GRAPHOUTPUT(IGW,COOR,NFIX,EXLD,IDBC,FEF,PROP,SECT,LM,IDND,DELTA,ELFOR,NNOD,...
 %     NDN,NCO,NDE,NEQ,NBC,NMAT,NSEC,ITP,NNE,IFORCE,FUNIT,LUNIT);
 % fclose(IGW);
 

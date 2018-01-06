@@ -1,5 +1,5 @@
-function [GLK,GLOAD] = FORMKP(COOR,IDBC,VECTY,PROP,SECT,LM,FEF,GLOAD,NNOD,NBC,NMAT...
-    ,NSEC,IFORCE,ITP,NCO,NDN,NDE,NNE,NEQ)
+function [GLK,GLOAD] = FORMKP(COOR, IDBC, VECTY, PROP, SECT, LM, FEF, GLOAD, NNOD, NBC, NMAT...
+    , NSEC, IFORCE, ITP, NCO, NDN, NDE, NNE, NEQ)
 %..........................................................................
 %
 %   PURPOSE: Form the global stiffness matrix GLK.
@@ -41,10 +41,12 @@ for IB = 1 : NBC
 
     % Transform the element stiffness matrix from the local axes to global
     % axes : EE --> ELK
+    % ELK(Matrix)¡GLocal to Global Stiffness
     ELK = T' * EE * T;
 
     % Assemble the global element stiffness matrix to form the global
     % stiffness matrix GLK
+    % GLK(Matrix)¡GAssemble Stiffness
     GLK(GDOF, GDOF) = GLK(GDOF, GDOF) + ELK(LDOF, LDOF);
 
     % This part is to be completed in PROG4.
@@ -52,6 +54,7 @@ for IB = 1 : NBC
     % FORM {P} (add the part arising from equivalent member end forces)
     % -----------------------------------------------------------------
     % ****** ADDFEF will be added in PROG4 *****
+    % GLOAD(Array)¡GFEF ­×¥¿
     if IFORCE == 2
         EFEQ = - T' * FEF(:, IB);
         GLOAD(GDOF) = GLOAD(GDOF) + EFEQ(LDOF);

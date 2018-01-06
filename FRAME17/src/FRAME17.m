@@ -28,12 +28,12 @@ function FRAME17(FILENAME)
 %..........................................................................
 
 %    FRAME TYPE    ITP  NCO  NDN   (NCO and NDN are stored in Array IPR)
-%           BEAM    1    1    2
-%   PLANAR  TRUSS   2    2    2
-%   PLANAR  FRAME   3    2    3
-%   PLANAR  GRID    4    2    3
-%   SPACE   TRUSS   5    3    3
-%   SPACE   FRAME   6    3    6
+%           BEAM    1    1    2    (Y, thetaZ)
+%   PLANAR  TRUSS   2    2    2    (X, Y)
+%   PLANAR  FRAME   3    2    3    (X, Y, thetaZ)
+%   PLANAR  GRID    4    2    3    (Y, thetaX, thetaZ)
+%   SPACE   TRUSS   5    3    3    (X, Y, Z)
+%   SPACE   FRAME   6    3    6    (X, Y, Z, thetaX, thetaY, thetaZ)
 
 FTYPE = {'BEAM'; 'PLANE TRUSS'; 'PLANE FRAME'; 'PLANE GRID'; 'SPACE TRUSS'; 'SPACE FRAME'};
 IPR = [ 1, 2, 2, 2, 3, 3; ...

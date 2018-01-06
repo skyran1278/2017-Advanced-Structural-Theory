@@ -6,6 +6,7 @@
 
 
 ------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
   Advanced Structural Theory
 
   Program Assignment No. 1 (weight=1)
@@ -30,6 +31,7 @@
         (b) Input file "*.ipt"
 
 ------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
   Advanced Structural Theory
 
   Program Assignment No. 2 (weight=2)
@@ -46,6 +48,7 @@
         Compare the results with those obtained by hand calculations.
         (You should upload the results to the Ceiba. )
 
+------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------
     Advanced Structural Theory
 
@@ -85,3 +88,40 @@
              (7) Assume there is no distributed load and a vertical force applied
                  at point C; its value=80 kN and the direction is downward.
 
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+    Advanced Structural Theory
+
+    Program Assignment No. 4 (weight=3)
+          (12/7/2017)
+      Due: 12/21/2017
+
+     1. Complete the main program FRAME17
+     2. Complete function FORCE
+     3. Complete adding FEF in function FORMKP
+     4. Function OUTPUT has been completed except that one line
+        that is marked needs to be adjusted.
+     5. Run the following examples:
+        (1) All the examples you did for the PROG3 assignments.
+        (2) Other examples:
+           a. ITP=1: example 5.11 (page 124) but with
+			          ab=5m and bc=2m and settlement=12 mm.
+           b. ITP=2: example 5.12 (page 127)
+           c. ITP=3: example 5.3 (page 102) considering that a uniformly
+                     distributed load of 25 kN/m is applied downward
+                     on member bc and 10 kN/m on member cd.
+              * Calculate the P_eq by assembling the (-f_fef) and compare
+                 it with that obtained from your program.
+            d. ITP=5: Consider example 5.4 on page 104 assuming there are
+                      no external loads at node a and the temperature in each member
+                      has a raise of 25 degrees. Assume that the coefficient of
+                     thermal expansion= 1.2*10^-5.
+            e. ITP=6: Consider the four cases on page 69 of Ch. 8 of course notes
+                      with the following data: (F-unit: N; L-unit cm)
+                      Coordinate: node 1 (0,0,0), 2 (0, 900, 0)
+                      Material/Section: E=9500 N/cm^2, A=16 cm^2, I_1=28 cm^4,
+                                        I_2=9 cm^4, J=25 cm^4.
+                      Boundary conditions: 1-fixed 2-free with the applied loads
+                        (global dir) of F_Y2=550 N and F_Z2=2500 N
+                      * You shall obtain the same displacements and rotations
+                        for all the four cases.

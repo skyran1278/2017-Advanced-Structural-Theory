@@ -99,27 +99,29 @@ GLOAD = LOAD(EXLD, IDND, NDN, NNOD, NEQ);
 % equivalent nodal vector by assembling -(fixed-end forces) of each member
 % into the load vector.
 [GLK, GLOAD] = FORMKP(COOR, IDBC, VECTY, PROP, SECT, LM, FEF, GLOAD, NNOD, NBC, NMAT, NSEC, IFORCE, ITP, NCO, NDN, NDE, NNE, NEQ);
-%
-% % ^^* UP TO HERE  --- PROG 3 ^^*
-%
-% DISP = SOLVE(GLK, ~ );
-%
+
+% ^^* UP TO HERE  --- PROG 3 ^^*
+
+DISP = SOLVE(GLK, GLOAD);
+
 % % Determine the member end forces ELFOR(NDE,NBC)
 % ELFOR = FORCE( ~ );
-%
+
 % % Get ending time and count the elapased time
 % endTime = clock;
-%
+
 % % Print out the results
 % IWRITE = fopen([FILENAME '.dat'], 'w');
-% OUTPUT( ~ );
+% OUTPUT(IWRITE, TITLE, FILENAME, FTYPE, FUNIT, LUNIT, startTime, endTime, ...
+%     NNOD, NBC, NMAT, NSEC, NEQ, NCO, NDN, NNE, ITP, COOR, NFIX, PROP, SECT, IDBC, IDND, ...
+%     VECTY, EXLD, IFORCE, FEF, DELTA, ELFOR, NSBAND);
 % fclose(IWRITE);
-%
+
 % IGW = fopen([FILENAME '.txt'], 'w');
 % GRAPHOUTPUT(IGW,COOR,NFIX,EXLD,IDBC,FEF,PROP,SECT,LM,IDND,DISP,ELFOR,NNOD,...
 %     NDN,NCO,NDE,NEQ,NBC,NMAT,NSEC,ITP,NNE,IFORCE,FUNIT,LUNIT);
 % fclose(IGW);
-%
-% % ^^* UP TO HERE  --- PROG 4 ^^*
+
+% ^^* UP TO HERE  --- PROG 4 ^^*
 
 end

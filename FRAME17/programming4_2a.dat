@@ -1,0 +1,104 @@
+                          MATRIX STRUCTURAL ANALYSIS
+                                December, 2017
+            For the course : Advanced Structural Theory
+            Programmer(s)  : ¤D«ÉµM (Version 1.0)
+            Supervised by  : Dr. Liang-Jenq Leu
+                             Dept. of Civil Engineering
+                             National Taiwan University
+ =============================================================================
+ Project name   : Programming 2a  ITP=1
+ File analyzed  : programming4_2a.ipt
+ Output file    : programming4_2a.dat
+ Frame type     : BEAM
+ Execution date  : 2018/01/08
+ Unit of force  : kN
+ Unit of length : mm
+ Total Program Running Time :
+ Hour  Min.  Sec. (1/100)Sec.
+  0     0     0     9
+ _____________________________________________________________________________
+
+ PROBLEM SCOPE
+
+   Number of   Number of   Number of   Number of   Number of     Semi-
+     Nodes      Members   Mat'l Types   Sections     DOFs      Bandwidth
+ _____________________________________________________________________________
+
+       3           2           1           2           2           2
+ _____________________________________________________________________________
+
+ NODAL INFORMATION
+
+  Node              Nodal Coordinates                      Nodal Fixity
+  Numb          X           Y           Z        X-tran  Y    Z  X-rot  Y    Z
+  ----      ---------------------------------      ---------------------------
+    1       0.000E+00                                   -1                   0
+    2       5.000E+03                                   -1                   0
+    3       7.000E+03                                   -1                  -1
+ _____________________________________________________________________________
+
+ MATERIAL PROPERTIES
+
+                    Mat'l Type       E        Poisson's Ratio
+                    ----------   -----------------------------
+                         1       2.000E+02      3.000E-01
+ _____________________________________________________________________________
+
+ SECTION PROPERTIES
+
+          Sect. Type      Area         Iz          Iy          J
+          ----------   ----------------------------------------------
+               1       6.000E+03   1.200E+04   0.000E+00   9.000E+03
+               2       4.000E+03   5.000E+07   0.000E+00   1.000E+05
+ _____________________________________________________________________________
+
+ MEMBER INFORMATION
+
+  Member     Node Numb    Mat'l   Sect.     Directional Cosines for Weak Axis
+   Numb    End-I  End-J    Type    Type       X-dir       Y-dir       Z-dir
+  ------   ------------   -------------   ------------------------------------
+     1        1      2      1       1
+     2        2      3      1       2
+ _____________________________________________________________________________
+
+ NODAL LOADS (Unit : kN)
+
+  Node                 Forces                             Moments
+  Numb       X           Y           Z           X           Y           Z
+  ----   ---------------------------------   ---------------------------------
+ _____________________________________________________________________________
+
+ FIXED END FORCES (Local Coordinates)
+    (Force  : kN)
+    (Moment : kN-mm)
+
+  Memb  Node                Force                            Moment
+  Numb  Numb       X'         Y'         Z'         X'         Y'         Z'
+  ----  ----  -------------------------------  -------------------------------
+    1     1               4.608E+01                                   1.152E+05
+    1     2              -4.608E+01                                   1.152E+05
+    2     2              -1.800E+02                                  -1.800E+05
+    2     3               1.800E+02                                  -1.800E+05
+ _____________________________________________________________________________
+
+ NODAL DISPLACEMENTS (Unit : mm)
+  Node              Displacement                          Rotation
+  Numb       X           Y           Z           X           Y           Z
+  ----   ---------------------------------   ---------------------------------
+    1                0.000E+00                                      -6.000E+01
+    2                0.000E+00                                       6.120E-03
+    3                0.000E+00                                       0.000E+00
+ _____________________________________________________________________________
+
+ MEMBER FORCES (Local Coordinates)
+    (Force  : kN)
+    (Moment : kN-mm)
+
+  Memb  Node                Force                            Moment
+  Numb  Numb       X'         Y'         Z'         X'         Y'         Z'
+  ----  ----  -------------------------------  -------------------------------
+    1     1               1.152E+01                                  -1.455E-11
+    1     2              -1.152E+01                                   5.761E+04
+    2     2              -8.821E+01                                  -5.761E+04
+    2     3               8.821E+01                                  -1.188E+05
+ _____________________________________________________________________________

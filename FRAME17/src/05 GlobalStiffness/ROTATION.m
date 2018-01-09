@@ -65,7 +65,7 @@ switch(ITP)
         ROT = [
             RL, 0, 0;
             0, x, y;
-            0, y, x
+            0, -y, x
             ] / RL;
 
     case 5 % Space Truss

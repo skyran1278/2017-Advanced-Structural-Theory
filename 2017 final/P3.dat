@@ -7,15 +7,15 @@
                              National Taiwan University
  =============================================================================
  Project name   : Programming 2b  ITP=2
- File analyzed  : Pa.ipt
- Output file    : Pa.dat
+ File analyzed  : P3.ipt
+ Output file    : P3.dat
  Frame type     : PLANE TRUSS
- Execution date  : 2018/01/10
+ Execution date  : 2018/01/11
  Unit of force  : kN
  Unit of length : m
  Total Program Running Time :
  Hour  Min.  Sec. (1/100)Sec.
-  0     0     0    16
+  0     0     0    12
  _____________________________________________________________________________
 
  PROBLEM SCOPE
@@ -112,6 +112,3 @@
     7     3  -1.333E+01   0.000E+00
     7     5   1.333E+01   0.000E+00
  _____________________________________________________________________________
-Total Volume :1.160000 m^3
-Total Mass :3192.000000 kg
-Total Cost :69488.000000 NTD

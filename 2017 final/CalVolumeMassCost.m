@@ -15,8 +15,8 @@ for IB = 1 : NBC
     [~, RL] = ROTATION(COOR, VECTY, IDBC, IB, ITP, NCO, NDE);
 
     A = SECT(1, IDBC(4, IB));
-    RHO = PROP(4, IDBC(3, IB));
     COST = PROP(3, IDBC(3, IB));
+    RHO = PROP(4, IDBC(3, IB));
 
     V = V + A * RL;
     M = M + RHO * A * RL;

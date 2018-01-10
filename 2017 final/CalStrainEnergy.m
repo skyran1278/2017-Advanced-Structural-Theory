@@ -17,8 +17,6 @@ function [] = CalStrainEnergy(COOR, FORMAT, IDBC, LM, NEQ, NSEC, ...
 
 fprintf('*Strain Energy \n');
 
-
-
 for IB = 1 : NBC
 
     % T(Matrix)¡Gtransformation matrix
